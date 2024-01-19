@@ -22,7 +22,7 @@ exports.fileHandler = (req, res) => {
 exports.objectHandler = (req, res) => {
   const type = req.params.type;
   const id = req.params.id;
-  const filePath = path.join(__dirname, 'data', 'images', type + id + '.jpg');
+  const filePath = path.join(__dirname, 'data', 'objects', type, type + id + '.jpg');
   if (fs.existsSync(filePath)) {
     res.sendFile(filePath);
   } else {

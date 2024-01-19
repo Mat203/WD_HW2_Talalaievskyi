@@ -21,6 +21,8 @@ function originFunction (origin, callback) {
     }
 }
 
+app.use(cors(corsOptions)); 
+
 app.get('/html1', handlers.html1Handler);
 app.get('/html2', handlers.html2Handler);
 app.get('/file/:filename', handlers.fileHandler);
