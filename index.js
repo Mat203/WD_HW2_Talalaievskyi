@@ -27,17 +27,20 @@ const html1Handler = (req, res) => {
 const html2Handler = (req, res) => {
   res.sendFile(path.join(__dirname, 'Data', 'sites', 'html2.html'));
 };
-app.get('/html1', html1Handler);
-app.get('/html2', html2Handler);
-app.get('/file/:filename', (req, res) => {
+
+const fileHandler = (req, res) => {
   const filename = req.params.filename;
-  const filePath = path.join(__dirname, 'assets', 'files', filename);
+  const filePath = path.join(__dirname, 'Data', filename);
   if (fs.existsSync(filePath)) {
     res.sendFile(filePath);
   } else {
     res.status(404).send('File not found');
   }
-});
+};
+
+app.get('/html1', html1Handler);
+app.get('/html2', html2Handler);
+app.get('/file/:filename', fileHandler);
 //app.get('/objects/:type/:id', handler);
 //app.get('/objects/:type', handler);
 //app.get('/objects', handler);
