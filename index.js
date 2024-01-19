@@ -67,28 +67,31 @@ const objectsTypeHandler = (req, res) => {
 };
 
 const objectsHandler = (req, res) => {
-  const dirPath = path.join(__dirname, 'data', 'images');
+  const dirPath = path.join(__dirname, 'data', 'objects');
   
   fs.readdir(dirPath, (err, directories) => {
     if (err) {
       console.error(err);
       res.status(500).send(err.message);
     } else {
-      const allImages = directories.map(directory => {
+      const allObjects = directories.filter(directory => {
         const typePath = path.join(dirPath, directory);
-        if (fs.statSync(typePath).isDirectory()) {
-          const files = fs.readdirSync(typePath);
-          return files.map(file => ({
-            type: directory,
-            name: file,
-            url: `/objects/${directory}/${path.parse(file).name}`
-          }));
-        }
-      }).flat();
-      res.json(allImages);
+        return fs.statSync(typePath).isDirectory();
+      });
+      res.json(allObjects);
     }
   });
 };
+
+const infoHandler = (req, res) => {
+  const infoPath = path.join(__dirname, 'info.json');
+  if (fs.existsSync(infoPath)) {
+    res.sendFile(infoPath);
+  } else {
+    res.status(404).send('Info not found');
+  }
+};
+
 
 app.get('/html1', html1Handler);
 app.get('/html2', html2Handler);
@@ -96,6 +99,6 @@ app.get('/file/:filename', fileHandler);
 app.get('/objects/:type/:id', objectHandler);
 app.get('/objects/:type', objectsTypeHandler);
 app.get('/objects', objectsHandler);
-//app.get('/info', handler);
+app.get('/info', infoHandler);
 
 app.listen(3000, () => console.log('Server is running on port 3000'));

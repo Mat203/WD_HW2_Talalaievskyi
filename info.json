@@ -1,0 +1,54 @@
+{
+    "endpoints": {
+      "/html1": {
+        "method": "GET",
+        "description": "Returns the HTML1 page",
+        "parameters": []
+      },
+      "/html2": {
+        "method": "GET",
+        "description": "Returns the HTML2 page",
+        "parameters": []
+      },
+      "/file/:filename": {
+        "method": "GET",
+        "description": "Returns the file with the given filename",
+        "parameters": ["filename"]
+      },
+      "/objects/:type/:id": {
+        "method": "GET",
+        "description": "Returns the object of the given type and ID",
+        "parameters": ["type", "id"]
+      },
+      "/objects/:type": {
+        "method": "GET",
+        "description": "Returns all objects of the given type",
+        "parameters": ["type"]
+      },
+      "/objects": {
+        "method": "GET",
+        "description": "Returns all objects",
+        "parameters": []
+      },
+      "/info": {
+        "method": "GET",
+        "description": "Returns this API documentation",
+        "parameters": []
+      }
+    },
+    "objects": {
+      "chicken": {
+        "description": "Images of chickens",
+        "count": "Number of chicken images you have"
+      },
+      "duck": {
+        "description": "Images of ducks",
+        "count": "Number of duck images you have"
+      },
+      "goose": {
+        "description": "Images of geese",
+        "count": "Number of goose images you have"
+      }
+    }
+  }
+  
