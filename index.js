@@ -4,6 +4,7 @@ const os = require('os');
 const express = require('express');  
 const app = express();  
 const bodyParser = require('body-parser')  
+const path = require('path');
 
 const whitelist = ['http://localhost:3000', 'http://localhost:3001'];
 
@@ -19,12 +20,15 @@ function originFunction (origin, callback) {
     }
 }
 
-const handler = (req, res) => {
-  // Your handler logic here
+const html1Handler = (req, res) => {
+  res.sendFile(path.join(__dirname, 'Data', 'sites', 'html1.html'));
 };
 
-app.get('/html1', handler);
-app.get('/html2', handler);
+const html2Handler = (req, res) => {
+  res.sendFile(path.join(__dirname, 'Data', 'sites', 'html2.html'));
+};
+app.get('/html1', html1Handler);
+app.get('/html2', html2Handler);
 app.get('/file/:filename', (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, 'assets', 'files', filename);
@@ -34,9 +38,9 @@ app.get('/file/:filename', (req, res) => {
     res.status(404).send('File not found');
   }
 });
-app.get('/objects/:type/:id', handler);
-app.get('/objects/:type', handler);
-app.get('/objects', handler);
-app.get('/info', handler);
+//app.get('/objects/:type/:id', handler);
+//app.get('/objects/:type', handler);
+//app.get('/objects', handler);
+//app.get('/info', handler);
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
