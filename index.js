@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();  
 const bodyParser = require('body-parser')  
 const path = require('path');
-const handlers = require('./handlers'); 
+const handlers = require('./handlers/handlers'); 
 
 const whitelist = ['http://localhost:3000', 'http://localhost:3001'];
 
